@@ -6,7 +6,7 @@ const apiKey = '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'; // Be sure
 const openai = new OpenAIApi(new Configuration({ apiKey }));
 
 const App = () => {
-  const [prompt, setPrompt] = useState('Describe the: ');
+  const [prompt, setPrompt] = useState('');
   const [wordCount, setWordCount] = useState('');
   const [campaignInfo, setCampaignInfo] = useState('');
   const [output, setOutput] = useState('');
@@ -29,7 +29,7 @@ const App = () => {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{paddingBottom:"20vh"}}>
       <div className="row">
         <div className="col-lg-8 offset-lg-2">
           <div className="form-group">
