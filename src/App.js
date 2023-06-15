@@ -12,7 +12,7 @@ const App = () => {
   const [output, setOutput] = useState('');
 
   const handleSubmit = async () => {
-    const input = `${prompt} in paragraph form, in under ${wordCount} words , but get as close as possible to this word count, using the information provided in this award entry:  ${campaignInfo}`;
+    const input = `${prompt} in paragraph form, in under ${wordCount} words (which includes symbols), but get as close as possible to this word count, using the information provided in this award entry:  ${campaignInfo}`;
     console.log(input)
     try {
       const response = await openai.createChatCompletion({
