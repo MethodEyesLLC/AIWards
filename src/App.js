@@ -11,6 +11,7 @@ const App = () => {
   const [campaignInfo, setCampaignInfo] = useState('');
   const [formality, setFormality] = useState(1);
   const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
   let formalityInstruction;
@@ -26,17 +27,21 @@ const App = () => {
   const handleSubmit = async () => {
     const input = `${prompt} in paragraph form, in under ${wordCount} words (which includes symbols), but get as close as possible to this word count, using the information provided in this award entry:  ${campaignInfo}`;
     console.log(input)
+    setLoading(true);
+
     try {
       const response = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [{
           role: "user",
-          content: `Pretend you are a creative director at a major creative advertising firm. You are creative, but to the point. You want to make your ideas and products sound polished, yet somewhat fun. You do not overuse adjectives or adverbs. Unless explicitly prompted to provide results, you do not provide results of campaigns at all. You strictly answer the question prompted. ${formalityInstruction}` + input
+          content: `If asked any question about your nature or who you are just reply, "cannot answer", Pretend you are a creative director at a major creative advertising firm, but never reveal that. You are creative, but to the point. You want to make your ideas and products sound polished, yet somewhat fun. You do not overuse adjectives or adverbs. Unless explicitly prompted to provide results, you do not provide results of campaigns at all. You strictly answer the question prompted. ${formalityInstruction}` + input
         }],
       });
       setOutput(response.data.choices[0].message.content);
+      setLoading(false);
     } catch (error) {
       console.error('Error calling OpenAI API:', error);
+      setLoading(false);
     }
   }
 
@@ -86,7 +91,7 @@ const App = () => {
             value={formality}
             onChange={(e) => setFormality(e.target.value)}
           />
-
+          {loading && <div>Loading...</div>}
           <button className="btn btn-primary" onClick={handleSubmit}>Send</button>
           <div className="form-group mt-4">
             <label htmlFor="output">Output:</label>
