@@ -62,31 +62,31 @@ const AwardGenerator = () => {
   } else {
     formalityInstruction = 'Write this in a casual, friendly, but work-appropriate style.';
   }
-  const handleFeedback = async () => {
-    try {
-      // prepare your feedback data
-      const feedbackData = {
-        feedback: feedback,
-        rating: rating,
-        // add any other data you need
-      };
+  // const handleFeedback = async () => {
+  //   try {
+  //     // prepare your feedback data
+  //     const feedbackData = {
+  //       feedback: feedback,
+  //       rating: rating,
+  //       // add any other data you need
+  //     };
 
-      // send POST request to your backend
-      const response = await axios.post('your_backend_api_endpoint_here', feedbackData);
+  //     // send POST request to your backend
+  //     const response = await axios.post('your_backend_api_endpoint_here', feedbackData);
 
-      // check response
-      if (response.data.success) {
-        // clear the feedback form
-        setFeedback('');
-        setRating(1);
-        alert('Thank you for your feedback!');
-      } else {
-        alert('Failed to send feedback. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error sending feedback:', error);
-    }
-  };
+  //     // check response
+  //     if (response.data.success) {
+  //       // clear the feedback form
+  //       setFeedback('');
+  //       setRating(1);
+  //       alert('Thank you for your feedback!');
+  //     } else {
+  //       alert('Failed to send feedback. Please try again.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error sending feedback:', error);
+  //   }
+  // };
 
   const handleSubmit = async () => {
 
@@ -111,6 +111,8 @@ const AwardGenerator = () => {
         wordCount: parseInt(wordCount),
         campaignInfo: campaignInfo,
         formalityInstruction: formality,
+        rating: rating,
+        feedback: feedback
       };
 
       // Send POST request to Flask backend
@@ -208,7 +210,7 @@ const AwardGenerator = () => {
                     <option value={4}>4</option>
                     <option value={5}>5</option>
                   </select>
-                  <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button>
+                  {/* <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button> */}
                 </div>
               </div>
             </div>
