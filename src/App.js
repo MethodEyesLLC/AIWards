@@ -21,9 +21,9 @@ function App() {
       <nav>
         <Link onClick={() => onSetSidebarOpen(false)} to="/">Home</Link>
         <Link onClick={() => onSetSidebarOpen(false)} to="/aitrainer">AI Trainer</Link>
-        <Link onClick={() => onSetSidebarOpen(false)} to="/award-generator">Award Generator</Link>
-        <Link onClick={() => onSetSidebarOpen(false)} to="/calendar">Calendar</Link>
-        <Link onClick={() => onSetSidebarOpen(false)} to="/questions">Question Section</Link>
+        {/* <Link onClick={() => onSetSidebarOpen(false)} to="/award-generator">Award Generator</Link> */}
+        {/* <Link onClick={() => onSetSidebarOpen(false)} to="/calendar">Calendar</Link> */}
+        {/* <Link onClick={() => onSetSidebarOpen(false)} to="/questions">Question Section</Link> */}
       </nav>
     </div>
   );
@@ -44,7 +44,7 @@ function App() {
             <FaBars />
           </button>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<AwardGenerator />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/award-generator" element={<AwardGenerator />} />
             <Route path="/aitrainer" element={<AITrainer />} />
