@@ -11,7 +11,7 @@ const AITrainer = () => {
 
     const handleAddEntry = async () => {
         try {
-            await axios.post('https://silly-nasturtium-34f057.netlify.app/add-entry', { text, score });
+            await axios.post('https://awardsbackend-87cbab8eef7a.herokuapp.com/add-entry', { text, score });
             setResponse('Entry added to corpus successfully!');
         } catch (error) {
             console.error(error);
@@ -20,7 +20,7 @@ const AITrainer = () => {
 
     const handleTrainModel = async () => {
         try {
-            await axios.post('https://silly-nasturtium-34f057.netlify.app/train-model', { text });
+            await axios.post('https://awardsbackend-87cbab8eef7a.herokuapp.com/train-model', { text });
             setResponse('Vector generated and stored in Pinecone successfully!');
         } catch (error) {
             console.error(error);

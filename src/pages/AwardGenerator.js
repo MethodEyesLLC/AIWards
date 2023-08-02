@@ -88,7 +88,7 @@ const AwardGenerator = () => {
       };
 
       // Send POST request to Flask backend
-      const response = await fetch('https://silly-nasturtium-34f057.netlify.app/api/complete', {
+      const response = await fetch('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
