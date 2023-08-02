@@ -47,6 +47,8 @@ const AwardGenerator = () => {
   const [formality, setFormality] = useState(1);
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(''); // new state for storing user feedback
+  const [rating, setRating] = useState(1); // new state for storing user rating
   const [awardShow, setAwardShow] = useState(Object.keys(templates)[0]);
   const [category, setCategory] = useState(Object.keys(templates[awardShow])[0]);
   const [entry, setEntry] = useState(Object.keys(templates[awardShow][category])[0]);
@@ -60,7 +62,31 @@ const AwardGenerator = () => {
   } else {
     formalityInstruction = 'Write this in a casual, friendly, but work-appropriate style.';
   }
+  const handleFeedback = async () => {
+    try {
+      // prepare your feedback data
+      const feedbackData = {
+        feedback: feedback,
+        rating: rating,
+        // add any other data you need
+      };
 
+      // send POST request to your backend
+      const response = await axios.post('your_backend_api_endpoint_here', feedbackData);
+
+      // check response
+      if (response.data.success) {
+        // clear the feedback form
+        setFeedback('');
+        setRating(1);
+        alert('Thank you for your feedback!');
+      } else {
+        alert('Failed to send feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending feedback:', error);
+    }
+  };
 
   const handleSubmit = async () => {
 
@@ -170,6 +196,19 @@ const AwardGenerator = () => {
                 <div className="form-group mt-4">
                   <label htmlFor="output">Output:</label>
                   <textarea className="form-control" id="output" rows="3" value={output} readOnly />
+                </div>
+                <div className="form-group mt-4">
+                  <label htmlFor="feedback">Feedback (Optional):</label>
+                  <textarea className="form-control" id="feedback" rows="3" value={feedback} onChange={(e) => setFeedback(e.target.value)} />
+                  <label htmlFor="rating" className="mt-2">Rate this Output:</label>
+                  <select id="rating" value={rating} onChange={(e) => setRating(e.target.value)} className="form-control">
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                  <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button>
                 </div>
               </div>
             </div>
