@@ -62,46 +62,42 @@ const AwardGenerator = () => {
   } else {
     formalityInstruction = 'Write this in a casual, friendly, but work-appropriate style.';
   }
-  // const handleFeedback = async () => {
-  //   try {
-  //     // prepare your feedback data
-  //     const feedbackData = {
-  //       feedback: feedback,
-  //       rating: rating,
-  //       // add any other data you need
-  //     };
+  const handleFeedback = async () => {
+    try {
+      // prepare your feedback data
+      const feedbackData = {
+        feedback: feedback,
+        rating: rating,
+        prompt: prompt,
+        wordCount: parseInt(wordCount),
+        campaignInfo: campaignInfo,
+        formalityInstruction: formality,
+        output: output,
 
-  //     // send POST request to your backend
-  //     const response = await axios.post('your_backend_api_endpoint_here', feedbackData);
+        // add any other data you need
+      };
 
-  //     // check response
-  //     if (response.data.success) {
-  //       // clear the feedback form
-  //       setFeedback('');
-  //       setRating(1);
-  //       alert('Thank you for your feedback!');
-  //     } else {
-  //       alert('Failed to send feedback. Please try again.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error sending feedback:', error);
-  //   }
-  // };
+      // send POST request to your backend
+      const response = await axios.post('http://localhost:5000/api/rating', feedbackData);
+
+      // check response
+      if (response.data.success) {
+        // clear the feedback form
+        setFeedback('');
+        setRating(1);
+        alert('Thank you for your feedback!');
+      } else {
+        alert('Failed to send feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending feedback:', error);
+    }
+  };
 
   const handleSubmit = async () => {
 
     setLoading(true);
 
-    // Fetch list of existing entries from the backend
-    // axios.get('http://localhost:5000/fetch_entry?id=0d344ce2-2238-435f-aa6a-3325dc8b2f3e')
-    //   .then((response) => {
-    //     const entries = response.data;
-    //     // Do something with the list of entries
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.error(`Error fetching entries: ${error}`);
-    //   });
 
 
     try {
@@ -111,12 +107,11 @@ const AwardGenerator = () => {
         wordCount: parseInt(wordCount),
         campaignInfo: campaignInfo,
         formalityInstruction: formality,
-        rating: rating,
-        feedback: feedback
+
       };
 
       // Send POST request to Flask backend
-      const response = await fetch('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/complete', {
+      const response = await fetch('http://localhost:5000/api/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -210,7 +205,7 @@ const AwardGenerator = () => {
                     <option value={4}>4</option>
                     <option value={5}>5</option>
                   </select>
-                  {/* <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button> */}
+                  <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button>
                 </div>
               </div>
             </div>
