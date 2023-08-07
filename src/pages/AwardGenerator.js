@@ -78,7 +78,7 @@ const AwardGenerator = () => {
       };
 
       // send POST request to your backend
-      const response = await axios.post('http://localhost:5000/api/rating', feedbackData);
+      const response = await axios.post('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/rating', feedbackData);
 
       // check response
       if (response.data.success) {
@@ -111,7 +111,7 @@ const AwardGenerator = () => {
       };
 
       // Send POST request to Flask backend
-      const response = await fetch('http://localhost:5000/api/complete', {
+      const response = await fetch('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
