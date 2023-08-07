@@ -78,7 +78,7 @@ const AwardGenerator = () => {
       };
 
       // send POST request to your backend
-      const response = await axios.post('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/rating', feedbackData);
+      const response = await axios.post('http://localhost:5000/api/rating', feedbackData);
 
       // check response
       if (response.data.success) {
@@ -111,7 +111,7 @@ const AwardGenerator = () => {
       };
 
       // Send POST request to Flask backend
-      const response = await fetch('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/complete', {
+      const response = await fetch('http://localhost:5000/api/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -192,12 +192,13 @@ const AwardGenerator = () => {
                 <button className="btn btn-primary" onClick={handleSubmit}>Send</button>
                 <div className="form-group mt-4">
                   <label htmlFor="output">Output:</label>
-                  <textarea className="form-control" id="output" rows="3" value={output} readOnly />
+                  <textarea className="form-control" id="output" rows="3" value={output} onChange={(e) => setOutput(e.target.value)}  />
                 </div>
                 <div className="form-group mt-4">
                   <label htmlFor="feedback">Feedback (Optional):</label>
                   <textarea className="form-control" id="feedback" rows="3" value={feedback} onChange={(e) => setFeedback(e.target.value)} />
                   <label htmlFor="rating" className="mt-2">Rate this Output:</label>
+                  
                   <select id="rating" value={rating} onChange={(e) => setRating(e.target.value)} className="form-control">
                     <option value={1}>1</option>
                     <option value={2}>2</option>
@@ -205,6 +206,10 @@ const AwardGenerator = () => {
                     <option value={4}>4</option>
                     <option value={5}>5</option>
                   </select>
+                  <p3>
+                    NOTE: If there is anything in the output that we should omit, like a reference to training material, please delete before submitting feedback.
+                  </p3>
+                  <br />
                   <button className="btn btn-primary mt-2" onClick={handleFeedback}>Submit Feedback</button>
                 </div>
               </div>
