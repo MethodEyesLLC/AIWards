@@ -18,6 +18,19 @@
   color: #D5563D;  /* secondary color */
 }
 
+.card-header-center {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center;     /* center vertically */
+  height: 100%;            /* occupy full height of the card header */
+}
+/* Universal font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Gloock, serif;
+}
+body, p, a, li, span, button, input, textarea, select, label, option {
+  font-family: Ubuntu, sans-serif;
+}
 /* Update the sidebar styles as per your design */
 .react-sidebar-content {
   background: #0A1524;  /* primary color */
