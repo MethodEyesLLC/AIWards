@@ -2,15 +2,17 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns layout, adjust as needed */
+    align-items: start; 
+    grid-template-columns: repeat(2, 1fr); /* 4 columns layout, adjust as needed */
     gap: 16px;
     padding: 20px;
-    margin: 7.5vw; /* Add margins around the entire grid */
+
+    /* margin: 5vw; Add margins around the entire grid */
 }
 
 .grid-item {
     border: 1px solid #e0e0e0;
-    padding: 16px;
+    padding: 8px;
     border-radius: 8px;
     background-color: #ffffff;
     transition: box-shadow 0.3s;
@@ -23,4 +25,85 @@
 .grid-item a {
     text-decoration: none;
     color: #0077b6;
+}
+
+.grid-item button {
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+    margin-right: 5px;      /* Spacing between the Edit and Delete buttons */
+}
+
+.grid-item button:last-child {
+    margin-right: 0;        /* Removing the right margin for the last button (Delete) */
+}
+
+.grid-item button:hover {
+    background-color: #eee;
+    transform: scale(1.05);
+}
+
+.grid-item button:focus {
+    outline: none;
+}
+
+/* For the Delete button, you may want a different hover color to distinguish it. */
+.grid-item button.delete-button:hover {
+    background-color: #ffb3b3;  /* A light red shade on hover */
+    color: #d43f00;             /* Darker red text color */
+}
+
+
+.sort-container {
+    display: flex;
+    justify-content: center;   /* This will center the child items horizontally */
+    align-items: center;       /* This will center the child items vertically (if needed) */
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sort-container button {
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-left: 10px;          /* Spacing between buttons */
+    margin-right: 10px;
+}
+
+.sort-container button:first-child {
+    margin-left: 0;             /* Remove the left margin for the first button */
+}
+
+.sort-container button:last-child {
+    margin-right: 0;            /* Remove the right margin for the last button */
+}
+
+.sort-container button:hover {
+    background-color: #eee;
+    transform: scale(1.05);
+}
+
+.sort-container button:focus {
+    outline: none;
+}
+
+.quarter-filters {
+    display: flex;
+    gap: 10px;
+    justify-content: center; 
+    padding: 10px 0;
 }
