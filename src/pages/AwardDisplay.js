@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/AwardDisplay.css';
 
-// let API_URL = 'https://awardsbackend-87cbab8eef7a.herokuapp.com'
-let API_URL = 'http://localhost:5000'
+let API_URL = 'https://awardsbackend-87cbab8eef7a.herokuapp.com'
+// let API_URL = 'http://localhost:5000'
 function AwardDisplay() {
     const [data, setData] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
