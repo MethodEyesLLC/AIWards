@@ -9,7 +9,7 @@ function AwardDisplay() {
 
     useEffect(() => {
         // Fetch data from the Flask API
-        axios.get('http://localhost:5000/api/data')
+        axios.get('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/data')
             .then(response => {
                 setData(response.data);
             })
