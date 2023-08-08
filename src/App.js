@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 import Calendar from './pages/Calendar'
 import AwardGenerator from './pages/AwardGenerator'
 import AITrainer from './pages/AITrainer'
-
+import AwardDisplay from './pages/AwardDisplay';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -19,9 +19,9 @@ function App() {
     <div className="sidebar-content">
       <button onClick={() => onSetSidebarOpen(false)}>Close</button>
       <nav>
-        <Link onClick={() => onSetSidebarOpen(false)} to="/">Home</Link>
+        <Link onClick={() => onSetSidebarOpen(false)} to="/">Generator</Link>
         <Link onClick={() => onSetSidebarOpen(false)} to="/aitrainer">AI Trainer</Link>
-        {/* <Link onClick={() => onSetSidebarOpen(false)} to="/award-generator">Award Generator</Link> */}
+        <Link onClick={() => onSetSidebarOpen(false)} to="/award-dash">Award Dashboard</Link>
         {/* <Link onClick={() => onSetSidebarOpen(false)} to="/calendar">Calendar</Link> */}
         {/* <Link onClick={() => onSetSidebarOpen(false)} to="/questions">Question Section</Link> */}
       </nav>
@@ -47,6 +47,7 @@ function App() {
             <Route path="/" element={<AwardGenerator />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/award-generator" element={<AwardGenerator />} />
+            <Route path="/award-dash" element={<AwardDisplay />} />
             <Route path="/aitrainer" element={<AITrainer />} />
             {/* Other routes can be added here */}
           </Routes>

@@ -1,0 +1,26 @@
+/* src/DataDisplay.css */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns layout, adjust as needed */
+    gap: 16px;
+    padding: 20px;
+    margin: 7.5vw; /* Add margins around the entire grid */
+}
+
+.grid-item {
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s;
+}
+
+.grid-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item a {
+    text-decoration: none;
+    color: #0077b6;
+}
