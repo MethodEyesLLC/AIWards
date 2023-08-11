@@ -3,7 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { templates } from '../templates';
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000'
+// const API_URL = 'http://localhost:5000'
+const API_URL = 'https://awardsbackend-87cbab8eef7a.herokuapp.com'
 const inlineStyles = {
     WebkitTextSizeAdjust: "100%",
     tabSize: 4,
@@ -121,26 +122,26 @@ const AwardGenerator = () => {
 
 
 
-    useEffect(() => {
-        // Function to fetch questions for the selected award show
-        const fetchQuestions = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/get_awardshow_questions?name=EffieAwardsUnitedStates`);
-                if (response.data.questions) {
-                    setAwardShowQuestions(response.data.questions);
+    // useEffect(() => {
+    //     // Function to fetch questions for the selected award show
+    //     const fetchQuestions = async () => {
+    //         try {
+    //             const response = await axios.get(`http://localhost:5000/api/get_awardshow_questions?name=EffieAwardsUnitedStates`);
+    //             if (response.data.questions) {
+    //                 setAwardShowQuestions(response.data.questions);
 
-                    // Set the prompt with the first question's description
-                    if (response.data.questions[0] && response.data.questions[0].description) {
-                        setPrompt(response.data.questions[0].description);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching questions:', error);
-            }
-        };
+    //                 // Set the prompt with the first question's description
+    //                 if (response.data.questions[0] && response.data.questions[0].description) {
+    //                     setPrompt(response.data.questions[0].description);
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching questions:', error);
+    //         }
+    //     };
 
-        fetchQuestions();
-    }, [awardShow]);
+    //     fetchQuestions();
+    // }, [awardShow]);
 
     let formalityInstruction;
     if (formality === 3) {
@@ -167,7 +168,7 @@ const AwardGenerator = () => {
             };
 
             // send POST request to your backend
-            const response = await axios.post('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/rating', feedbackData);
+            const response = await axios.post({API_URL} + '/api/rating', feedbackData);
 
             // check response
             if (response.data.success) {
