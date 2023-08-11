@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { templates } from '../templates';
 import axios from 'axios'
 
+const API_URL = 'http://localhost:5000'
 const inlineStyles = {
     WebkitTextSizeAdjust: "100%",
     tabSize: 4,
@@ -27,6 +28,45 @@ const cardStyles = {
     borderRadius: '10px'  // Slight border radius
 };
 
+// const RenderSections = ({ data }) => {
+//     // Check if data is a string and try to parse it
+//     let parsedData = data;
+//     if (typeof data === 'string') {
+//         try {
+//             parsedData = JSON.parse(data);
+//         } catch (error) {
+//             console.error("Failed to parse data:", error);
+//             return <div>Error rendering sections.</div>;
+//         }
+//     }
+
+//     // Ensure parsedData is an object before rendering
+//     if (typeof parsedData !== 'object' || parsedData === null) {
+//         console.error("Data is not an object:", parsedData);
+//         return <div>Error rendering sections.</div>;
+//     }
+
+//     return (
+//         <div>
+//             {Object.keys(parsedData).map(sectionKey => {
+//                 const section = parsedData[sectionKey];
+//                 return (
+//                     <div key={sectionKey} className="mb-4">
+//                         <h4>{section.label}</h4>
+//                         <p>{section.description}</p>
+//                         {section.questions && section.questions.map((question, index) => (
+//                             <div key={index} className="mb-2">
+//                                 <h5>{question.label} (Word count: {question.wordcount || 'N/A'})</h5>
+//                                 <p>{question.description}</p>
+//                             </div>
+//                         ))}
+//                     </div>
+//                 );
+//             })}
+//         </div>
+//     );
+// };
+
 
 const SidebarMenu = () => {
     const [awardShow, setAwardShow] = useState(Object.keys(templates)[0]);
@@ -34,7 +74,7 @@ const SidebarMenu = () => {
     const [entry, setEntry] = useState(Object.keys(templates[awardShow][category])[0]);
 
     return (
-        <div className="sidebar" style={{backgroundColor: `rgba(213, 86, 61)`, height: '100vh', paddingTop: "5vh", paddingLeft: "1vw"}}>
+        <div className="sidebar" style={{ backgroundColor: `rgba(213, 86, 61)`, height: '100vh', paddingTop: "5vh", paddingLeft: "1vw" }}>
             <h3>Award Show</h3>
             <select value={awardShow} onChange={(e) => { setAwardShow(e.target.value); setCategory(Object.keys(templates[e.target.value])[0]); setEntry(Object.keys(templates[e.target.value][category])[0]) }}>
                 {Object.keys(templates).map((show) => (
@@ -77,9 +117,32 @@ const AwardGenerator = () => {
     const [awardShow, setAwardShow] = useState(Object.keys(templates)[0]);
     const [category, setCategory] = useState(Object.keys(templates[awardShow])[0]);
     const [entry, setEntry] = useState(Object.keys(templates[awardShow][category])[0]);
+    const [awardShowQuestions, setAwardShowQuestions] = useState(''); // state to store the fetched questions
+
+
+
+    useEffect(() => {
+        // Function to fetch questions for the selected award show
+        const fetchQuestions = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/get_awardshow_questions?name=EffieAwardsUnitedStates`);
+                if (response.data.questions) {
+                    setAwardShowQuestions(response.data.questions);
+
+                    // Set the prompt with the first question's description
+                    if (response.data.questions[0] && response.data.questions[0].description) {
+                        setPrompt(response.data.questions[0].description);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+            }
+        };
+
+        fetchQuestions();
+    }, [awardShow]);
 
     let formalityInstruction;
-
     if (formality === 3) {
         formalityInstruction = 'Write this in a very formal style, like a legal document.';
     } else if (formality === 2) {
@@ -121,29 +184,25 @@ const AwardGenerator = () => {
     };
 
     const handleSubmit = async () => {
-
         setLoading(true);
-
-
 
         try {
             // Request data
             const data = {
                 prompt: prompt,
+                // prompt: JSON.stringify(awardShowQuestions), // Stringify the entire awardShowQuestions object
                 wordCount: parseInt(wordCount),
                 campaignInfo: campaignInfo,
                 formalityInstruction: formality,
-
             };
 
             // Send POST request to Flask backend
-            const response = await fetch('https://awardsbackend-87cbab8eef7a.herokuapp.com/api/complete', {
+            const response = await fetch(API_URL + '/api/complete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify
-                    (data)
+                body: JSON.stringify(data)
             });
 
             // Parse response data
@@ -174,14 +233,14 @@ const AwardGenerator = () => {
                     <div className="container mt-5">
                         <div className="row">
                             <div className="col-lg-8 mx-auto">
-
                                 <div className="form-group">
                                     <h3 className="card-header-center">
                                         Generate Award
                                     </h3>
                                     <div className="card" style={cardStyles}>
                                         <div className="card-body">
-                                            <label htmlFor="prompt">Prompt:</label>
+                                            {/* <RenderSections data={awardShowQuestions} /> */}
+                                            Prompt:
                                             <textarea
                                                 className="form-control"
                                                 id="prompt"
